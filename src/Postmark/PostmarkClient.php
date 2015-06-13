@@ -47,7 +47,7 @@ class PostmarkClient extends PostmarkClientBase {
 		if(is_array($from))
 		{
 			$body = $from;
-			$body['Headers'] = $this->fixHeaders($body['Headers']);
+			if(isset($body['Headers'])) $body['Headers'] = $this->fixHeaders($body['Headers']);
 		}
 		else
 		{
