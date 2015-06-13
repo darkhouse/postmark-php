@@ -44,19 +44,27 @@ class PostmarkClient extends PostmarkClientBase {
 		$tag = NULL, $trackOpens = true, $replyTo = NULL, $cc = NULL, $bcc = NULL,
 		$headers = NULL, $attachments = NULL) {
 
-		$body = array();
-		$body['From'] = $from;
-		$body['To'] = $to;
-		$body['Cc'] = $cc;
-		$body['Bcc'] = $bcc;
-		$body['Subject'] = $subject;
-		$body['HtmlBody'] = $htmlBody;
-		$body['TextBody'] = $textBody;
-		$body['Tag'] = $tag;
-		$body['ReplyTo'] = $replyTo;
-		$body['Headers'] = $this->fixHeaders($headers);
-		$body['TrackOpens'] = $trackOpens;
-		$body['Attachments'] = $attachments;
+		if(is_array($from))
+		{
+			$body = $from;
+			$body['Headers'] = $this->fixHeaders($body['Headers']);
+		}
+		else
+		{
+			$body = array();
+			$body['From'] = $from;
+			$body['To'] = $to;
+			$body['Cc'] = $cc;
+			$body['Bcc'] = $bcc;
+			$body['Subject'] = $subject;
+			$body['HtmlBody'] = $htmlBody;
+			$body['TextBody'] = $textBody;
+			$body['Tag'] = $tag;
+			$body['ReplyTo'] = $replyTo;
+			$body['Headers'] = $this->fixHeaders($headers);
+			$body['TrackOpens'] = $trackOpens;
+			$body['Attachments'] = $attachments;
+		}
 
 		return new DynamicResponseModel($this->processRestRequest('POST', '/email', $body));
 	}
