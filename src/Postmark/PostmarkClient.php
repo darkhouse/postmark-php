@@ -26,7 +26,7 @@ class PostmarkClient extends PostmarkClientBase {
 	/**
 	 * Send an email.
 	 *
-	 * @param  string $from: The sender of the email. (Your account must have an associated Sender Signature for the address used.)
+	 * @param  mixed $from: The sender of the email, or an array of parameters. (Your account must have an associated Sender Signature for the address used.)
 	 * @param  string $to  The recipient of the email.
 	 * @param  string $subject  The subject of the email.
 	 * @param  string $htmlBody  The HTML content of the message, optional if Text Body is specified.
@@ -40,7 +40,7 @@ class PostmarkClient extends PostmarkClientBase {
 	 * @param  array $attachments  An array of PostmarkAttachment objects.
 	 * @return DyanamicResponseModel
 	 */
-	function sendEmail($from, $to, $subject, $htmlBody = NULL, $textBody = NULL,
+	function sendEmail($from, $to = NULL, $subject = NULL, $htmlBody = NULL, $textBody = NULL,
 		$tag = NULL, $trackOpens = true, $replyTo = NULL, $cc = NULL, $bcc = NULL,
 		$headers = NULL, $attachments = NULL) {
 
