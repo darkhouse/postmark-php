@@ -48,14 +48,16 @@ class PostmarkClient extends PostmarkClientBase {
 		{
 			$body = $from;
 			if(isset($body['Headers'])) $body['Headers'] = $this->fixHeaders($body['Headers']);
+			if(isset($body['Cc'])) $body['Cc'] = $this->convertArray($body['Cc']);
+			if(isset($body['Bcc'])) $body['Bcc'] = $this->convertArray($body['Bcc']);
 		}
 		else
 		{
 			$body = array();
 			$body['From'] = $from;
 			$body['To'] = $to;
-			$body['Cc'] = $cc;
-			$body['Bcc'] = $bcc;
+			$body['Cc'] = $this->convertArray($cc);
+			$body['Bcc'] = $this->convertArray($bcc);
 			$body['Subject'] = $subject;
 			$body['HtmlBody'] = $htmlBody;
 			$body['TextBody'] = $textBody;
@@ -84,6 +86,11 @@ class PostmarkClient extends PostmarkClientBase {
 			}
 		}
 		return $retval;
+	}
+
+	private function convertArray($value)
+	{
+		return is_array($value) ? implode(', ', $value) : $value;
 	}
 
 	/**
@@ -673,4 +680,3 @@ class PostmarkClient extends PostmarkClientBase {
 	}
 }
 
-?>

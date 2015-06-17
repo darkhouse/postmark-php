@@ -84,4 +84,3 @@ class CaseInsensitiveArray implements \ArrayAccess, \Iterator {
 	}
 }
 
-?>
